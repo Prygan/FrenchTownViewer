@@ -1,24 +1,34 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" >
-    <script type="text/javascript" src="script/script.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.ui/1.8.10/jquery-ui.js"></script>
+    <link rel="Stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/base/jquery-ui.css" /> 
+    <script type="text/javascript" src="script/script.js"></script>
+    
     <title>FrenchTownViewer</title>
   </head>
   <body>
-    <script type="text/javascript">alert("C'EST LA MERDE EN GESTION")</script>
-    <script type="text/javascript">alert("FAUT VIRER TOUT LE MONDE")</script>
-    <script type="text/javascript">alert("ET PUTAIN IL EST MOCHE CE SITE !!!!")</script>
-
-
     <h1>FrenchTownViewer</h1>
     <p>Cette application permet d'obtenir des photos d'une commune via Flickr</p>
-    <form>
-      <input type="text" id="commune" value="ex: Nantes"/><br/>
-      <input type="submit" id="valid" value="Soumettre">
-    </form>
+    <table>
+      <tr>
+        <td>
+          <input type="text" id="commune" placeholder="ex: Nantes"/>
+        </td>
+        <td>
+          <input type="number" id="nbr_photo" step="1" value="10">
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <input type="submit" id="valid" value="Soumettre">
+        </td>
+      </tr>      
+    </table>
     <div id="result">
       <ul>
       </ul>
