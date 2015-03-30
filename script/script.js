@@ -2,10 +2,22 @@ var api_key="5c333b650e39c879301fd8258b7fbfec";
 var secret="7dcd634ec53396b5";
 
 
+//liste permettant de trier les image, structure de chaque element du tableau: {id, url, description, titre, date, auteur}
+var listeImage = new Array();
+
 $(document).ready(function() {
+
     autoCompleteInputCommune();
     $("#valid").on("click",function(){
-	   getPhoto(document.getElementById("commune").value, document.getElementById("nbr_photo").value);
+      getPhoto(document.getElementById("commune").value, document.getElementById("nbr_photo").value);
+    });
+
+    $("#trieIdentifiant").on("click", function(){
+      actualiseAffichageImg(tableTrierPar(listeImage,"auteur"));
+    });
+
+    $("#trieDate").on("click", function(){
+      actualiseAffichageImg(tableTrierPar(listeImage,"date"));
     });
 
 
@@ -47,18 +59,24 @@ function autoCompleteInputCommune(){
 
 
 function getPhoto(tag,nbr_photo){
-    vider_liste_photo();
+    vider_liste_photo(); 
+    listeImage = new Array();
+
 
 
     $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?tags="+tag+"&tagmode=any&format=json&jsoncallback=?", 
 	      function(data){
 		  $.each(data.items, function(i,item){
 		    if(i<nbr_photo){
-          ajouter_dans_la_liste("<img id=\"imageAfficher"+i+"\" src=\""+item.media.m+"\"/>");
-          $("#imageAfficher"+i).on("click",function(){
-            ouvrirFenetreModale("titre:"+item.title+"</br>"+item.description+"</br> date: "+item.date_taken+"</br> auteur: "+item.author);
+          var tmp = "imageAfficher"+i;
+          listeImage[i]={"id": tmp, "url":item.media.m, "description":item.description, "titre": item.title, "date":item.date_taken, "auteur": item.author};
 
-          });       
+          ajouter_dans_la_liste("auteur :"+item.author+"<img id=\""+tmp+"\" src=\""+item.media.m+"\"/>");
+
+          $("#"+tmp).on("click",function(){
+            ouvrirFenetreModale("titre:"+item.title+"</br>"+item.description+"</br> date: "+item.date_taken+"</br> auteur: "+item.author);
+          });
+          
         }
 		  });//fin each items
 	});//fin getJSON
@@ -73,13 +91,23 @@ function vider_liste_photo(){
 }
 
 
+function jsonEnDate(str){
+  var jour = str.split("T")[0];
+  jour = jour.split("-");
+
+  var heure = str.split("T")[1];
+  heure = heure.split("-")[0];
+  heure = heure.split(":");
+
+  return new Date(jour[0],jour[1],jour[2],heure[0],heure[1],heure[2],0);
+}
+
+
 /* fenetre modale */
 function ouvrirFenetreModale(texte){
     $("div.modal p").html(texte);
     $("div.modal").show();
     $("div.modalbg").show();
-
-
 }
 
 function fermerFenetreModale(){
@@ -87,8 +115,45 @@ function fermerFenetreModale(){
     $("div.modalbg").hide();
 
 }
+
+function coucou(){
+  window.location.assign("http://shemale-web-review.com/wp-content/uploads/2014/02/shemale-reviews-michelle-firestone-03.jpg");
+}
 /*----------------*/
 
-function getTable(n){
-  
+
+function sortString(field){
+    return function(a,b){
+      var x = a[field].toLowerCase();
+      var y = b[field].toLowerCase();
+      if (x < y){
+        return -1;
+      }
+      if (x > y){
+        return 1;
+      }
+      return 0;
+    }
 }
+
+function tableTrierPar(table, trierPar){
+  return table.sort(sortString(trierPar));
+}
+
+function actualiseAffichageImg(table){
+  vider_liste_photo();
+
+  for (var i = 0; i < table.length; i++) {
+    img = table[i];
+
+    ajouter_dans_la_liste("auteur :"+img["auteur"]+
+                          "</br>date : "+img["date"]+
+                          "</br><img id=\""+img["id"]+"\" src=\""+img["url"]+"\"/>");
+    $("#"+img["id"]).on("click",function(){
+      ouvrirFenetreModale("titre:"+img["titre"]+"</br>"+img["description"]+"</br> date: "+img["date"]+"</br> auteur: "+img["auteur"]);
+    });
+  };
+}
+
+
+
