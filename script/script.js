@@ -48,23 +48,19 @@ function autoCompleteInputCommune(){
 
 function getPhoto(tag,nbr_photo){
     vider_liste_photo();
-    var tmp = [];
+
+
     $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?tags="+tag+"&tagmode=any&format=json&jsoncallback=?", 
 	      function(data){
 		  $.each(data.items, function(i,item){
 		    if(i<nbr_photo){
-              ajouter_dans_la_liste("<img class=\"imageAfficher\" src=\""+item.media.m+"\"/>");
-              tmp[i]= item.description;
-            }
-		  });//fin each
+          ajouter_dans_la_liste("<img id=\"imageAfficher"+i+"\" src=\""+item.media.m+"\"/>");
+          $("#imageAfficher"+i).on("click",function(){
+            ouvrirFenetreModale("titre:"+item.title+"</br>"+item.description+"</br> date: "+item.date_taken+"</br> auteur: "+item.author);
 
-  $("img").each( function(i){ 
-    $(this).on("click", function(){
-      ouvrirFenetreModale(tmp[i]);
-    });
-  });
-
-
+          });       
+        }
+		  });//fin each items
 	});//fin getJSON
 }
 
@@ -93,4 +89,6 @@ function fermerFenetreModale(){
 }
 /*----------------*/
 
-
+function getTable(n){
+  
+}

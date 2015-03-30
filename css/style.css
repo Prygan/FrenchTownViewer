@@ -22,13 +22,13 @@ body
 }
 
 .modal{
-    width: 50%;
+    width: 25%;
     height: 50%;
     position: fixed;
     background-color: white;
     display: none;
     top: 25%;
-    left: 25%;
+    left: 40%;
     z-index: 100;
     padding: 20px;
 }
