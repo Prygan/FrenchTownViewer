@@ -30,11 +30,11 @@ function autoCompleteInputCommune(){
                     }));
                 },
                 error: function(request, error) {
-                    alert("Erreurs");
+                  alert("Erreurs");
                 }
             });
         },
-        minlength:1,
+        minlength:3,
         delay:10
     });
 }
@@ -44,11 +44,11 @@ function getPhoto(tag,nbr_photo){
     vider_liste_photo();
     $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?tags="+tag+"&tagmode=any&format=json&jsoncallback=?", 
 	      function(data){
-		  $.each(data.items, function(i,item){
-		      if(i<nbr_photo)
-			  ajouter_dans_la_liste("<img src=\""+item.media.m+"\"/>");
+		      $.each(data.items, function(i,item){
+		        if(i<nbr_photo)
+			       ajouter_dans_la_liste("<a href=\"\"><img src=\""+item.media.m+"\"/></a>");
 		  });
-	      });
+	});
     
 }
 
