@@ -1,6 +1,3 @@
-var api_key="5c333b650e39c879301fd8258b7fbfec";
-var secret="7dcd634ec53396b5";
-
 
 //liste permettant de trier les image, structure de chaque element du tableau: {id, url, description, titre, date, auteur}
 var listeImage = new Array();
@@ -12,19 +9,17 @@ $(document).ready(function() {
       getPhoto(document.getElementById("commune").value, document.getElementById("nbr_photo").value);
     });
 
-    $("#trieIdentifiant").on("click", function(){
+    $("#tri #auteur").on("click", function(){
       actualiseAffichageImg(tableTrierPar(listeImage,"auteur"));
     });
 
-    $("#trieDate").on("click", function(){
+    $("#tri #date").on("click", function(){
       actualiseAffichageImg(tableTrierPar(listeImage,"date"));
     });
 
-
-
-
-
     $("span.modal_close").on("click",fermerFenetreModale);
+    
+    $("#disposition #caroussel").on("click", caroussel);
 });
 
 
@@ -138,5 +133,6 @@ function actualiseAffichageImg(table){
   };
 }
 
-
-
+function caroussel(){
+    $("#result").jcaroussel('scroll','+=1');
+}
