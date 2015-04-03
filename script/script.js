@@ -19,7 +19,15 @@ $(document).ready(function() {
 
     $("span.modal_close").on("click",fermerFenetreModale);
     
-    $("#disposition #caroussel").on("click", caroussel);
+    $("#disposition #caroussel").on("click", function(){
+      caroussel();
+    });
+
+    $("#disposition #liste").on("click", function(){
+      removeCaroussel();
+    });
+
+
 });
 
 
@@ -60,14 +68,14 @@ function getPhoto(tag,nbr_photo){
 		  $.each(data.items, function(i,item){
 		    if(i<nbr_photo){
           var tmp = "imageAfficher"+i;
-          listeImage[i]={"id": tmp, "url":item.media.m, "description":item.description, "titre": item.title, "date":item.date_taken, "auteur": item.author};
-
-          ajouter_dans_la_liste("auteur :"+item.author+"<img id=\""+tmp+"\" src=\""+item.media.m+"\"/>");
-
-          $("#"+tmp).on("click",function(){
-            ouvrirFenetreModale("titre:"+item.title+"</br>"+item.description+"</br> date: "+item.date_taken+"</br> auteur: "+item.author);
-          });
-          
+          if ($("#filtreDate").val()!=""){
+            date = parseDate($("#filtreDate").val())
+            if (item.date_taken >= date) {
+              listeImage[i]={"id": tmp, "url":item.media.m, "description":item.description, "titre": item.title, "date":item.date_taken, "auteur": item.author};
+            };
+          }else{  
+            listeImage[i]={"id": tmp, "url":item.media.m, "description":item.description, "titre": item.title, "date":item.date_taken, "auteur": item.author};  
+          }
         }
 		  });//fin each items
       actualiseAffichageImg(listeImage);
@@ -75,11 +83,11 @@ function getPhoto(tag,nbr_photo){
 }
 
 function ajouter_dans_la_liste(aAjouter){
-    $('#result ul').append("<li>"+aAjouter+"</li>");
+    $('.jcarousel ul').append("<li>"+aAjouter+"</li>");
 }
 
 function vider_liste_photo(){
-    $("#result ul").html("");
+    $(".jcarousel ul li").remove();
 }
 
 /* fenetre modale */
@@ -97,6 +105,13 @@ function fermerFenetreModale(){
 
 
 /*----------------*/
+
+function parseDate(date)
+{
+  var mja = date.split("/");
+  return mja[2] + "-" + mja[0] + "-" + mja[1] + "T00:00:00-00:00";
+}
+
 
 
 function sortString(field){
@@ -122,17 +137,78 @@ function actualiseAffichageImg(table){
 
   for (var i = 0; i < table.length; i++) {
     img = table[i];
-    var id = "#"+img["id"];
+    id = "#"+img["id"];
 
-    ajouter_dans_la_liste("auteur :"+img["auteur"]+
-                          "</br>date : "+img["date"]+
-                          "</br><img id=\""+img["id"]+"\" src=\""+img["url"]+"\"/>");
-    $(id).on("click",function(){
-      ouvrirFenetreModale("titre:"+img["titre"]+"</br>"+img["description"]+"</br> date: "+img["date"]+"</br> auteur: "+img["auteur"]);
-    });
+    ajouter_dans_la_liste("<img id=\""+img["id"]+"\" src=\""+img["url"]+"\""+
+                          " onclick=\"imgOnClick("+i+")\""+
+                          "/>");
   };
+}
+function imgOnClick(positionImage){
+    ouvrirFenetreModale("titre:"+listeImage[positionImage]["titre"]+
+      "</br>"+
+      listeImage[positionImage]["description"]+
+      "</br> date: "+
+      listeImage[positionImage]["date"]+
+      "</br> auteur: "+
+      listeImage[positionImage]["auteur"]);
+}
+
+function removeCaroussel(){
+  $("#aSupr").html("");
+  $(".jcarousel li").css("float","none");
+
 }
 
 function caroussel(){
-    $("#result").jcaroussel('scroll','+=1');
+  
+  var tmp = "<div id=\"aSupr\"><a href=\"#\" class=\"jcarousel-control-prev\">&lsaquo;</a>"+
+        "<a href=\"#\" class=\"jcarousel-control-next\">&rsaquo;</a>"+
+                  
+        "<p class=\"jcarousel-pagination\"></div>";
+
+  $("#aSupr").html("");
+  $(".jcarousel-wrapper").append(tmp);
+  
+  $(".jcarousel li").css("float", "left");
+
+
+  (function($) {
+      $(function() {
+          $('.jcarousel').jcarousel();
+
+          $('.jcarousel-control-prev')
+              .on('jcarouselcontrol:active', function() {
+                  $(this).removeClass('inactive');
+              })
+              .on('jcarouselcontrol:inactive', function() {
+                  $(this).addClass('inactive');
+              })
+              .jcarouselControl({
+                  target: '-=1'
+              });
+
+          $('.jcarousel-control-next')
+              .on('jcarouselcontrol:active', function() {
+                  $(this).removeClass('inactive');
+              })
+              .on('jcarouselcontrol:inactive', function() {
+                  $(this).addClass('inactive');
+              })
+              .jcarouselControl({
+                  target: '+=1'
+              });
+
+          $('.jcarousel-pagination')
+              .on('jcarouselpagination:active', 'a', function() {
+                  $(this).addClass('active');
+              })
+              .on('jcarouselpagination:inactive', 'a', function() {
+                  $(this).removeClass('active');
+              })
+              .jcarouselPagination();
+      });
+  })(jQuery);
+
+
 }

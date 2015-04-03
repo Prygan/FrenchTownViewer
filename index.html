@@ -4,13 +4,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.ui/1.8.10/jquery-ui.js"></script>
-    <link rel="Stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/base/jquery-ui.css"/> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
 
     <script type="text/javascript" src="script/jquery.jcarousel.js"></script>
 
     <script type="text/javascript" src="script/script.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/jcarousel.css"/>
 
     <title>FrenchTownViewer</title>
   </head>
@@ -33,27 +34,43 @@
       </tr>
       <tr>
       	<td>
-	  Trier par : <br/>
-	  <select id="tri">
-	    <option id="auteur" value="auteur">auteur</option>
-	    <option id="date" value="date">date</option>
-	  </select>
+      	  Trier par : <br/>
+      	  <select id="tri">
+      	    <option id="auteur" value="auteur">auteur</option>
+      	    <option id="date" value="date">date</option>
+      	  </select>
       	</td>
       	<td>
-	  Disposition des images :<br/>
-	  <select id="disposition">
-	    <option value="liste">en liste</option>
-	    <option value="caroussel">en caroussel</option>
-	  </select>
+      	  Disposition des images :<br/>
+      	  <select id="disposition">
+      	    <option id="liste">en liste</option>
+      	    <option id="caroussel">en caroussel</option>
+      	  </select>
       	</td>
-
+      </tr>
+      <tr>
+        <td>
+          date supérieure à :
+        </td>
+        <td>
+          <input type="date" id="filtreDate">
+        </td>
       </tr>
     </table>
-
-    <div id="result">
-      <ul>
-      </ul>
+    <div class="jcarousel-wrapper">
+      <div class="jcarousel">
+        <ul>
+        </ul>
+      </div>
     </div>
+
+
+
+
+
+
+
+
 
     <!-- fenetre modale -->
     <div class="modal">
