@@ -21,6 +21,9 @@ $(document).ready(function() {
     });
 
 
+
+
+
     $("span.modal_close").on("click",fermerFenetreModale);
 });
 
@@ -72,6 +75,7 @@ function getPhoto(tag,nbr_photo){
           
         }
 		  });//fin each items
+      actualiseAffichageImg(listeImage);
 	});//fin getJSON
 }
 
@@ -96,9 +100,7 @@ function fermerFenetreModale(){
 
 }
 
-function coucou(){
-  window.location.assign("http://shemale-web-review.com/wp-content/uploads/2014/02/shemale-reviews-michelle-firestone-03.jpg");
-}
+
 /*----------------*/
 
 
@@ -125,11 +127,12 @@ function actualiseAffichageImg(table){
 
   for (var i = 0; i < table.length; i++) {
     img = table[i];
+    var id = "#"+img["id"];
 
     ajouter_dans_la_liste("auteur :"+img["auteur"]+
                           "</br>date : "+img["date"]+
                           "</br><img id=\""+img["id"]+"\" src=\""+img["url"]+"\"/>");
-    $("#"+img["id"]).on("click",function(){
+    $(id).on("click",function(){
       ouvrirFenetreModale("titre:"+img["titre"]+"</br>"+img["description"]+"</br> date: "+img["date"]+"</br> auteur: "+img["auteur"]);
     });
   };
