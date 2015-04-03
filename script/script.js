@@ -6,7 +6,7 @@ $(document).ready(function() {
 
     autoCompleteInputCommune();
     $("#valid").on("click",function(){
-      getPhoto(document.getElementById("commune").value, document.getElementById("nbr_photo").value);
+      getPhoto($("#commune").val(), $("#nbr_photo").val());
     });
 
     $("#tri #auteur").on("click", function(){
@@ -20,11 +20,11 @@ $(document).ready(function() {
     $("span.modal_close").on("click",fermerFenetreModale);
     
     $("#disposition #caroussel").on("click", function(){
-      caroussel();
+      actualiseDisposition();
     });
 
     $("#disposition #liste").on("click", function(){
-      removeCaroussel();
+      actualiseDisposition();
     });
 
 
@@ -50,12 +50,12 @@ function autoCompleteInputCommune(){
                     }));
                 },
                 error: function(request, error) {
-                  //alert("Erreurs, il n'y a aucune ville de ce nom la");
+                  alert("Erreurs, il n'y a aucune ville de ce nom la");
                 }
             });
         },
-        minlength:1,
-        delay:100
+        minlength:2,
+        delay:10
     });
 }
 
@@ -143,6 +143,8 @@ function actualiseAffichageImg(table){
                           " onclick=\"imgOnClick("+i+")\""+
                           "/>");
   };
+
+  actualiseDisposition();
 }
 function imgOnClick(positionImage){
     ouvrirFenetreModale("titre:"+listeImage[positionImage]["titre"]+
@@ -154,21 +156,25 @@ function imgOnClick(positionImage){
       listeImage[positionImage]["auteur"]);
 }
 
+
+// Jcarousel //
 function removeCaroussel(){
   $("#aSupr").html("");
   $(".jcarousel li").css("float","none");
+  $(".jcarousel-wrapper").css("border","");
 
 }
 
 function caroussel(){
-  
-  var tmp = "<div id=\"aSupr\"><a href=\"#\" class=\"jcarousel-control-prev\">&lsaquo;</a>"+
+
+  $(".jcarousel-wrapper").css("border","2px solid black");
+  var tmp = "<a href=\"#\" class=\"jcarousel-control-prev\">&lsaquo;</a>"+
         "<a href=\"#\" class=\"jcarousel-control-next\">&rsaquo;</a>"+
                   
-        "<p class=\"jcarousel-pagination\"></div>";
+        "<p class=\"jcarousel-pagination\">";
 
   $("#aSupr").html("");
-  $(".jcarousel-wrapper").append(tmp);
+  $("#aSupr").append(tmp);
   
   $(".jcarousel li").css("float", "left");
 
@@ -209,6 +215,16 @@ function caroussel(){
               .jcarouselPagination();
       });
   })(jQuery);
-
-
 }
+
+function actualiseDisposition(){
+  var select = document.getElementById("disposition");
+  var elemSelected = select.options[select.selectedIndex].value;
+
+  if (elemSelected == "en caroussel") {
+    caroussel();
+  }else{
+    removeCaroussel();
+  }
+}
+// Jcarousel //
