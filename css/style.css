@@ -1,12 +1,28 @@
-ul
+#menu
+{
+    background-color: #141B1F;
+    color: #FFFFFF;
+    font-family: "helvetica neue",helvetica,arial,"lucida grande",sans-serif
+}
+
+#menu ul
+{
+    margin: 0;
+    padding: 0;
+}
+
+#menu ul li{display: inline;}
+
+
+.jcarousel ul
 {
     list-style-type: none;
     text-align: center; 
 }
 
-body, h1
+body
 {
-    text-align: center;
+    background-color: #025B70;
     margin: 0;
 }
 
@@ -24,8 +40,8 @@ body, h1
 }
 
 .modal{
-    width: 25%;
-    height: 65%;
+    width: auto;
+    height: auto;
     position: fixed;
     background-color: white;
     display: none;
