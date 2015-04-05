@@ -17,54 +17,54 @@
   </head>
   <body>
     <div id="menu">
-      <span>
-	<ul>
-	  <li><h1>FrenchTownViewer</h1>
-	    <i>Cette application permet d'obtenir<br/>
-	      des photos d'une commune via Flickr</i>
-	  </li>
-	  <li>
-	    <table>
-	      <tr>
-		<td>
-		  <input type="text" id="commune" placeholder="ex: Nantes"/>
-		</td>
-		<td>
-		  <input type="number" id="nbr_photo" step="1" value="10">
-		</td>
-	      </tr>
-	      <tr>
-		<td colspan=2>
-		  <input type="button" id="valid" value="Soumettre">
-		</td>
-	      </tr>
-	      <tr>
-      		<td>
-      		  Trier par : <br/>
-      		  <select id="tri">
-      		    <option id="auteur" value="auteur">auteur</option>
-      		    <option id="date" value="date">date</option>
-      		  </select>
-      		</td>
-      		<td>
-      		  Disposition des images :<br/>
-      		  <select id="disposition">
-      		    <option id="liste">en liste</option>
-      		    <option id="caroussel">en caroussel</option>
-      		  </select>
-      		</td>
-	      </tr>
-	      <tr>
-		<td>
-		  date supérieure à :
-		</td>
-		<td>
-		  <input type="date" id="filtreDate">
-		</td>
-	      </tr>
-	    </table>
-	  </li>
-	</ul>
+    	<ul>
+    	  <li><h1>FrenchTownViewer</h1>
+    	    <i>Cette application permet d'obtenir<br/>
+    	      des photos d'une commune via Flickr</i>
+    	  </li>
+    	  <li>
+    	    <table>
+    	      <tr>
+          		<td>
+          		  <input type="text" id="commune" placeholder="ex: Nantes"/>
+          		</td>
+          		<td>
+          		  <input type="number" id="nbr_photo" step="1" value="10">
+          		</td>
+    	      </tr>
+    	      <tr>
+          		<td colspan=2>
+          		  <input type="button" id="valid" value="Soumettre">
+          		</td>
+    	      </tr>
+    	      <tr>
+          		<td>
+          		  Trier par : <br/>
+          		  <select id="tri">
+          		    <option id="auteur" value="auteur">auteur</option>
+          		    <option id="date" value="date">date</option>
+                  <option id="titre" value="titre">titre</option>
+          		  </select>
+          		</td>
+          		<td>
+          		  Disposition des images :<br/>
+          		  <select id="disposition">
+          		    <option id="liste">en liste</option>
+          		    <option id="caroussel">en caroussel</option>
+          		  </select>
+          		</td>
+    	      </tr>
+    	      <tr>
+          		<td>
+          		  date supérieure à :
+          		</td>
+          		<td>
+          		  <input type="date" id="filtreDate">
+          		</td>
+    	      </tr>
+    	    </table>
+        </li>
+    	</ul>
     </div> <!-- /end .menu -->
     <div class="jcarousel-wrapper">
       <div class="jcarousel">
@@ -72,7 +72,7 @@
         </ul>
       </div>
       <div id="aSupr">
-       
+  
       </div>
     </div>
 
