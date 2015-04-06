@@ -25,6 +25,7 @@
 
 body
 {
+    background-image: url("../guy.gif");
     background-color: #025B70;
     margin: 0;
 }
