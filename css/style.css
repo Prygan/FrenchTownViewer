@@ -3,16 +3,19 @@
     background-color: #141B1F;
     color: #FFFFFF;
     font-family: "helvetica neue",helvetica,arial,"lucida grande",sans-serif
+    clear: both;
+    overflow: hidden;
 }
 
-#menu ul
+#menu #titre
 {
-    margin: 0;
-    padding: 0;
+    float: left;
 }
 
-#menu ul li{display: inline;}
-
+#menu #formulaire
+{
+    float: right;
+}
 
 .jcarousel ul
 {
